@@ -15,7 +15,7 @@
 6. [Test the Site](#6-test-the-site)
 7. [Adding Questions (Content Guide)](#7-adding-questions-content-guide)
 8. [Managing Users (Access Control)](#8-managing-users-access-control)
-9. [Writing Answers — Plain Text Guide](#9-writing-answers--plain-text-guide)
+9. [Writing Questions & Answers — Plain Text Guide](#9-writing-questions--answers--plain-text-guide)
 10. [Choosing the Right Format for Your Answer](#10-choosing-the-right-format-for-your-answer)
 11. [The Category Filter (Programming / Circuit / Electronics…)](#11-the-category-filter)
 12. [In-Sheet Tools (Templates, Cheat Sheet, Validator)](#12-in-sheet-tools)
@@ -157,7 +157,7 @@ Open the **QUESTIONS** sheet in your Google Sheet. Each row = one question card 
 | **Category** | Broad subject — powers the topic filter chips | `Programming`, `Circuit Analysis` |
 | **QuestionNumber** | Badge on card | `Q3` or `Q1a` |
 | **Topic** | Short title on card header (different from Category!) | `Kruskal's MST Algorithm` |
-| **QuestionText** | The question — plain text | Just type it, no formatting needed |
+| **QuestionText** | The question — **plain text**, same formatting as Answer | Supports code blocks, tables, formulas, images too (Section 9) |
 | **Answer** | The full solution — **plain text** | See Section 9 for the formatting guide |
 | **CardColor** | Card header colour — optional | `blue`, or leave **blank** to auto-pick based on Category |
 | **DefaultOpen** | Show body on load? | `TRUE` or `FALSE` |
@@ -241,11 +241,11 @@ The fastest way to start: open the sheet, select the Answer cell, and use the me
 
 ---
 
-## 9. Writing Answers — Plain Text Guide
+## 9. Writing Questions & Answers — Plain Text Guide
 
-Type the **Answer** column like a normal message. No tags, no brackets-and-slashes to remember for 90% of answers. The system reads your plain text and turns it into a formatted page automatically.
+Type the **QuestionText** and **Answer** columns like a normal message. No tags, no brackets-and-slashes to remember for 90% of content. The system reads your plain text and turns it into a formatted page automatically — **the same formatting works in both columns**, so a question that includes a code snippet to analyze, a circuit diagram to refer to, or a data table just works the same way an answer does.
 
-> 🧩 **Don't want to memorize any of this?** Open the menu **📘 Exam Portal Tools → Insert Answer Template** in the Google Sheet and pick Programming / Circuit / Formula / Tips — it inserts a ready example into your selected cell that you just fill in. See [Section 12](#12-in-sheet-tools).
+> 🧩 **Don't want to memorize any of this?** Open the menu **📘 Exam Portal Tools → Insert Answer Template** in the Google Sheet and pick Programming / Circuit / Formula / Tips — it inserts a ready example into your selected cell (Question or Answer) that you just fill in. See [Section 12](#12-in-sheet-tools).
 
 ### The Cheat Sheet (one page)
 
@@ -327,9 +327,22 @@ This is confirmed by Kirchhoff's Current Law.
 ```
 The image will appear exactly between those two paragraphs on the live site, click-to-zoom enabled. Drive share links are converted automatically — paste exactly what Google gives you, no editing needed. See [Section 13](#13-image-hosting-guide) for hosting details.
 
+**A code block inside the QUESTION itself** — common for "predict the output" or "find the bug" style questions:
+```
+What will be the output of the following C++ code? Explain your reasoning.
+
+\`\`\`cpp
+int arr[] = {10, 20, 30, 40};
+int *p = arr;
+p++;
+cout << *p << " " << *(p+1) << endl;
+\`\`\`
+```
+This renders with the same syntax highlighting as an answer's code block — type it into the **QuestionText** cell exactly the same way. The sample row **Q003** already in your sheet shows this end-to-end.
+
 ### Advanced / Power-User Mode (optional, rarely needed)
 
-If an Answer cell already contains real HTML tags (`<table>`, `<h3>`, `<div>`, etc.), the system detects this and renders it exactly as typed, skipping the plain-text conversion. This is an escape hatch for pixel-level custom layouts — **not required for normal use.**
+If a QuestionText or Answer cell already contains real HTML tags (`<table>`, `<h3>`, `<div>`, etc.), the system detects this and renders it exactly as typed, skipping the plain-text conversion. This is an escape hatch for pixel-level custom layouts — **not required for normal use.**
 
 ---
 
@@ -348,7 +361,7 @@ Not sure which style to use for a given answer? Use this quick decision guide:
 | A circuit / block diagram / graph | Paste the Drive image link on its own line |
 | An exam strategy tip or common mistake | `TIP:` / `WARNING:` / `NOTE:` / `IMPORTANT:` box |
 
-Most real answers combine several of these — see the sample rows already in your QUESTIONS sheet (Q001 = Programming, Q002 = Circuit, T001 = Tips) for full worked examples mixing headings, lists, code, tables, formulas, and tip boxes together.
+Most real answers combine several of these — see the sample rows already in your QUESTIONS sheet (Q001 = Programming, Q002 = Circuit, Q003 = code-in-question example, T001 = Tips) for full worked examples mixing headings, lists, code, tables, formulas, and tip boxes together.
 
 ---
 
@@ -408,22 +421,26 @@ Run this periodically as your sheet grows — it takes a few seconds and catches
 
 ## 13. Image Hosting Guide
 
-Images must be at a **public URL**. Just paste the link directly into the Answer text on its own line — no shortcode needed (see Section 9).
+Images must be at a **public URL**. Just paste the link directly into the QuestionText or Answer text on its own line — no shortcode needed (see Section 9).
 
 ### Google Drive (recommended)
-1. Upload to Drive → Right-click → **Share → Anyone with the link**.
+1. Upload to Drive → Right-click → **Share → Change to "Anyone with the link"** (the dropdown must say *Anyone with the link*, **not** *Restricted* — this is the single most common reason images fail to load).
 2. Click **Copy link**.
-3. Paste that link directly into the Answer cell, on its own line. The system automatically converts it to a viewable image — you don't need to edit the URL format yourself.
+3. Paste that link directly into the cell, on its own line. The system automatically converts it to a viewable image — you don't need to edit the URL format yourself.
+
+> **Why images used to fail, and how this is fixed:** Google's older `uc?export=view` link format frequently shows a blank or broken image when hotlinked from an external website like this one — Drive serves an HTML "preview" page instead of the actual image file in that format. The site now uses Drive's **`thumbnail`** endpoint instead (the same one Drive's own interface uses to render previews), which is far more reliable for direct embedding. If that ever fails too, the page automatically retries with a second Google image format before giving up — so most sharing-permission issues self-resolve without you doing anything once the file is shared correctly. If both formats fail, the page shows a clear **"Open the original link →"** message instead of a broken icon, so you immediately know which question needs fixing.
 
 ### GitHub
 1. Upload the image to any public GitHub repository.
 2. Click the image file → **Right-click → Copy image address**.
-3. Paste that URL into the Answer cell, on its own line.
+3. Paste that URL into the cell (QuestionText or Answer), on its own line.
 
 ### Imgur
 1. Go to [imgur.com](https://imgur.com) → New post → drag image.
 2. Once uploaded, **right-click the image → Copy image address**.
-3. Paste that URL into the Answer cell, on its own line.
+3. Paste that URL into the cell (QuestionText or Answer), on its own line.
+
+> 💡 GitHub and Imgur links almost never have the loading issues that Drive links can have, since they're designed for direct hotlinking. If a particular Drive image keeps failing even after fixing sharing permissions, these are reliable alternatives.
 
 ---
 
@@ -486,9 +503,15 @@ $$\sum_{i=1}^{n} i = \frac{n(n+1)}{2}$$
 - Edit `const TOKEN_HOURS = 24;` in `Code.gs` to a higher value (e.g., `168` for 1 week).
 - Create a new deployment version after changing.
 
-### "Images not showing"
-- Ensure the image URL is publicly accessible (open it in a private/incognito browser tab).
-- For Google Drive: use the `uc?export=view&id=` format (see Section 10).
+### "Images not showing" / "Google Drive image fails to load"
+This is almost always a **sharing permission** issue. To fix it:
+1. Open the file in Google Drive → **Share** → confirm the dropdown says **"Anyone with the link"**, not "Restricted."
+2. Re-copy the link with **Copy link** and make sure it's pasted exactly as given (no edits needed — the site converts it automatically).
+3. Quick test: open the link in a **private/incognito browser window** (logged out of your Google account). If it asks for access, the permission isn't set correctly yet.
+
+The page already tries two different Google image formats automatically before giving up. If you still see **"⚠️ This image could not be loaded"** with an "Open the original link" button, click that link directly — if Google prompts you for access, that confirms the sharing setting is the issue. If the link opens fine for you, double-check it's a **file** link (not a folder), and that you copied the whole URL.
+
+If a specific image is persistently unreliable even with correct sharing, switch to GitHub or Imgur hosting instead (Section 13) — both tend to be more consistent for hotlinking than Drive.
 
 ### "Formulas not rendering"
 - MathJax loads asynchronously. Wait 1-2 seconds after the page loads.
