@@ -136,7 +136,7 @@ a{color:var(--blue);}
   font-size:12px;background:#fff;color:var(--text);outline:none;transition:border-color .2s;
 }
 .filter-bar select:focus,.filter-bar input:focus{border-color:var(--blue);}
-.filter-bar select{min-width:130px;}
+.filter-bar select{min-width:118px;}
 .search-wrap{position:relative;flex:1;min-width:160px;}
 .search-wrap input{width:100%;padding-left:30px;}
 .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
@@ -149,6 +149,20 @@ a{color:var(--blue);}
   background:#e3f2fd;color:var(--blue);padding:4px 10px;border-radius:12px;
   font-size:11px;font-weight:600;white-space:nowrap;margin-left:auto;
 }
+
+/* ── Category Quick-Chips ── */
+.category-chips{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:8px 18px;display:flex;gap:6px;flex-wrap:wrap;
+  position:sticky;top:103px;z-index:180;
+}
+.cat-chip{
+  background:var(--bg);border:1.5px solid var(--border);color:var(--muted);
+  padding:5px 12px;border-radius:16px;font-size:11.5px;font-weight:600;
+  transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:4px;
+}
+.cat-chip:hover{border-color:var(--blue);color:var(--blue);}
+.cat-chip.active{background:var(--blue);border-color:var(--blue);color:#fff;}
 
 /* ── Content Area ── */
 .content-area{padding:16px 16px 40px;max-width:900px;margin:0 auto;}
@@ -206,45 +220,39 @@ a{color:var(--blue);}
   background:rgba(255,255,255,.22);border-radius:4px;
   padding:1px 7px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;
 }
+.card-title-wrap{min-width:0;flex:1;}
 .card-title{font-size:13px;font-weight:600;color:#fff;line-height:1.3;}
+.card-cat{font-size:10px;color:rgba(255,255,255,.78);margin-top:1px;}
 .c-arrow{font-size:10px;color:rgba(255,255,255,.7);flex-shrink:0;transition:transform .2s;}
 .card-body{padding:14px;display:none;}
 .card-body.open{display:block;}
 
-/* ── Answer Content Styles ── */
-.card-body h3{color:var(--blue);font-size:13px;font-weight:700;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
-.card-body h3:first-child{margin-top:0;}
-.card-body h4{color:var(--navy);font-size:12px;font-weight:700;margin:10px 0 4px;}
-.card-body p{margin:5px 0;font-size:13px;}
-.card-body ul,.card-body ol{padding-left:20px;margin:6px 0;}
-.card-body li{margin:3px 0;font-size:13px;}
-.card-body strong{color:var(--navy);}
+/* ── Answer Content Styles (output of the smart formatter) ── */
+.answer-body h3{color:var(--blue);font-size:13px;font-weight:700;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.answer-body h3:first-child{margin-top:0;}
+.answer-body p{margin:5px 0;font-size:13px;}
+.answer-body ul,.answer-body ol{padding-left:20px;margin:6px 0;}
+.answer-body li{margin:3px 0;font-size:13px;}
+.answer-body strong{color:var(--navy);}
 
 /* Code */
-.card-body pre{
+.answer-body pre{
   background:var(--code-bg);color:var(--code-fg);padding:13px 15px;
   border-radius:8px;overflow-x:auto;font-size:12px;margin:8px 0;
   font-family:var(--ff-mono);border:1px solid #30363d;line-height:1.65;
 }
-.card-body code.inline-code,
-.card-body :not(pre) > code{
+.answer-body code{
   background:#e8eaf6;color:#283593;padding:1px 6px;border-radius:4px;
   font-family:var(--ff-mono);font-size:11px;
 }
+.answer-body pre code{background:none;color:inherit;padding:0;font-size:12px;}
 
 /* Tables */
 .table-wrap{overflow-x:auto;margin:10px 0;border-radius:6px;}
-.card-body table{width:100%;border-collapse:collapse;font-size:12px;}
-.card-body th{background:var(--blue);color:#fff;padding:7px 10px;text-align:left;font-weight:600;}
-.card-body td{padding:7px 10px;border:1px solid var(--border);}
-.card-body tr:nth-child(even) td{background:#f5f9ff;}
-/* KMap table */
-.kmap-wrap{overflow-x:auto;margin:10px 0;}
-.kmap-wrap table{width:auto;border-collapse:collapse;}
-.kmap-wrap th,.kmap-wrap td{width:62px;text-align:center;border:2px solid #90a4ae;font-weight:600;padding:6px;}
-.kmap-wrap th{background:#37474f;color:#fff;}
-.k1{background:#bbdefb !important;color:#0d47a1 !important;}
-.k2{background:#c8e6c9 !important;color:#1b5e20 !important;}
+.answer-body table{width:100%;border-collapse:collapse;font-size:12px;}
+.answer-body th{background:var(--blue);color:#fff;padding:7px 10px;text-align:left;font-weight:600;}
+.answer-body td{padding:7px 10px;border:1px solid var(--border);}
+.answer-body tr:nth-child(even) td{background:#f5f9ff;}
 
 /* Formula boxes */
 .formula{
@@ -252,7 +260,6 @@ a{color:var(--blue);}
   padding:8px 14px;font-family:var(--ff-mono);font-size:13px;
   color:#1a237e;margin:6px 0;
 }
-.formula.formula-big{font-size:16px;font-weight:700;text-align:center;padding:12px 16px;}
 
 /* Coloured boxes */
 .box{padding:10px 13px;border-radius:6px;margin:8px 0;font-size:13px;line-height:1.6;}
@@ -260,20 +267,6 @@ a{color:var(--blue);}
 .box-green {background:#e8f5e9;border-left:4px solid var(--green-l);}
 .box-orange{background:#fff3e0;border-left:4px solid var(--accent);}
 .box-red   {background:#fce4ec;border-left:4px solid var(--red);}
-.box-purple{background:#f3e5f5;border-left:4px solid var(--purple-l);}
-.box-yellow{background:#fffde7;border-left:4px solid #f9a825;}
-
-/* Tree / Gate / Diagram boxes */
-.tree-box{
-  background:#0d1117;color:#a5d6a7;padding:14px;border-radius:8px;
-  font-family:var(--ff-mono);font-size:13px;line-height:1.9;margin:8px 0;
-  border:1px solid #30363d;overflow-x:auto;white-space:pre;
-}
-.gate-box{
-  background:#1a1a2e;color:#80deea;padding:14px;border-radius:8px;
-  font-family:var(--ff-mono);font-size:12px;line-height:1.8;margin:8px 0;
-  border:1px solid #37474f;overflow-x:auto;white-space:pre;
-}
 
 /* Polished question highlight */
 .polished-q{
@@ -291,9 +284,13 @@ a{color:var(--blue);}
 .img-figure img.zoomable:hover{transform:scale(1.01);box-shadow:0 6px 20px rgba(0,0,0,.15);}
 .img-caption{font-size:11px;color:var(--muted);margin-top:5px;font-style:italic;}
 
-/* Gantt */
-.gantt{display:flex;margin:8px 0;border-radius:6px;overflow:hidden;}
-.gantt-block{padding:6px 10px;font-size:11px;font-weight:700;color:#fff;text-align:center;}
+/* Generic resource link (non-image URL pasted on its own line) */
+.resource-link{
+  display:inline-flex;align-items:center;gap:5px;background:#e8eaf6;color:#283593;
+  padding:7px 12px;border-radius:6px;font-size:12px;text-decoration:none;margin:6px 0;
+  border:1px solid #c5cae9;word-break:break-all;
+}
+.resource-link:hover{background:#d1d9f5;}
 
 /* ── No results ── */
 .no-results{text-align:center;padding:60px 20px;color:var(--muted);}
@@ -328,8 +325,9 @@ a{color:var(--blue);}
   .site-header{padding:10px 14px;}
   .site-header-title h1{font-size:15px;}
   .filter-bar{top:51px;padding:8px 12px;}
+  .category-chips{top:97px;padding:7px 12px;}
   .content-area{padding:12px 10px 40px;}
-  .card-body pre{font-size:11px;}
+  .answer-body pre{font-size:11px;}
   .formula{font-size:12px;}
   .login-card{padding:28px 22px;}
 }
@@ -399,6 +397,11 @@ a{color:var(--blue);}
     <span class="stats-pill" id="statsPill">Loading…</span>
   </div>
 
+  <!-- Category Quick-Chips -->
+  <div class="category-chips" id="categoryChips">
+    <!-- populated dynamically -->
+  </div>
+
   <!-- Content -->
   <div class="content-area" id="contentArea">
     <div class="loading-wrap">
@@ -428,7 +431,32 @@ a{color:var(--blue);}
    Get it from: Apps Script → Deploy → Manage Deployments → copy URL
    Format: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
    ══════════════════════════════════════════════════════════ */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzrVXI2co7fsFhwS8g0ZZ0TDZcPSLl7grfymQsG8oY9dIDum_lAG8zj7mDC63Vg2U_7zg/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbz1f87iDB5QPwcO5x8iw8Z2gniWBKwnAlyIMJRL0pxoiKe3kDblFL0APD1fpghRQ2JZvA/exec';
+
+/* ══════════════════════════════════════════
+   CATEGORY → ICON / COLOR LOOKUP
+   (used to auto-decorate cards when CardColor is left blank in the sheet)
+═══════════════════════════════════════════ */
+const CATEGORY_META = {
+  'programming':              { icon: '💻', color: 'blue'   },
+  'digital logic':            { icon: '🔢', color: 'purple' },
+  'circuit analysis':         { icon: '⚡', color: 'orange' },
+  'power electronics':        { icon: '🔌', color: 'red'    },
+  'electronics':               { icon: '🔧', color: 'teal'   },
+  'control systems':          { icon: '🎛️', color: 'purple' },
+  'communication systems':    { icon: '📡', color: 'teal'   },
+  'networking':                { icon: '🌐', color: 'green'  },
+  'microprocessor & embedded':{ icon: '🖥️', color: 'orange' },
+  'power systems':            { icon: '⚙️', color: 'red'    },
+  'database / sql':           { icon: '🗄️', color: 'blue'   },
+  'machine learning / ai':    { icon: '🧠', color: 'purple' },
+  'mathematics':               { icon: '📐', color: 'green'  },
+  'general / viva tips':      { icon: '📌', color: 'orange' },
+};
+function categoryMeta(cat) {
+  const key = String(cat || '').trim().toLowerCase();
+  return CATEGORY_META[key] || { icon: '📘', color: 'blue' };
+}
 
 /* ══════════════════════════════════════════
    STATE
@@ -437,7 +465,8 @@ const S = {
   token    : null,
   user     : null,
   questions: [],
-  options  : {},          // { universities[], departments[], years[], examTypes[] }
+  options  : {},          // { universities[], departments[], years[], examTypes[], categories[] }
+  activeCategory: '',
   searchTimer: null,
 };
 
@@ -581,6 +610,7 @@ async function loadAll() {
     S.questions = questionsRes.questions;
 
     populateFilters(filtersRes);
+    populateCategoryChips(filtersRes.categories);
     renderAll(S.questions);
   } catch(e) {
     setContent('<div class="no-results"><div style="font-size:32px">⚠️</div><p>Failed to load: ' + e.message + '</p></div>');
@@ -595,6 +625,7 @@ async function fetchQuestions() {
     department : document.getElementById('selDept').value,
     year       : document.getElementById('selYear').value,
     examtype   : document.getElementById('selType').value,
+    category   : S.activeCategory,
     search     : document.getElementById('searchInput').value.trim(),
   };
   try {
@@ -629,6 +660,28 @@ function fill(id, items, placeholder) {
   });
 }
 
+function populateCategoryChips(categories) {
+  const wrap = document.getElementById('categoryChips');
+  if (!categories || !categories.length) { wrap.style.display = 'none'; return; }
+  wrap.style.display = 'flex';
+
+  let html = '<button class="cat-chip' + (S.activeCategory === '' ? ' active' : '') +
+             '" onclick="setCategory(\'\')">🗂️ All Topics</button>';
+  categories.forEach(function(cat) {
+    const meta = categoryMeta(cat);
+    const isActive = S.activeCategory === cat;
+    html += '<button class="cat-chip' + (isActive ? ' active' : '') + '" onclick="setCategory(\'' +
+            escAttr(cat) + '\')">' + meta.icon + ' ' + escHtml(cat) + '</button>';
+  });
+  wrap.innerHTML = html;
+}
+
+function setCategory(cat) {
+  S.activeCategory = cat;
+  populateCategoryChips(S.options.categories);
+  fetchQuestions();
+}
+
 function applyFilters() { fetchQuestions(); }
 
 function clearFilters() {
@@ -636,6 +689,8 @@ function clearFilters() {
     document.getElementById(id).value = '';
   });
   document.getElementById('searchInput').value = '';
+  S.activeCategory = '';
+  populateCategoryChips(S.options.categories);
   fetchQuestions();
 }
 
@@ -682,16 +737,16 @@ function renderAll(questions) {
     const examLabel = g.examType || '';
     const metaStr   = [g.dept, yearLabel, examLabel].filter(Boolean).join(' · ');
     const pillHtml  = [
-      g.dept     ? '<span class="section-pill">' + g.dept + '</span>' : '',
-      yearLabel  ? '<span class="section-pill">' + yearLabel + '</span>' : '',
-      examLabel  ? '<span class="section-pill' + (isTips ? ' section-pill-accent' : '') + '">' + examLabel + '</span>' : '',
+      g.dept     ? '<span class="section-pill">' + escHtml(g.dept) + '</span>' : '',
+      yearLabel  ? '<span class="section-pill">' + escHtml(yearLabel) + '</span>' : '',
+      examLabel  ? '<span class="section-pill' + (isTips ? ' section-pill-accent' : '') + '">' + escHtml(examLabel) + '</span>' : '',
       '<span class="section-pill">' + g.items.length + (g.items.length === 1 ? ' Q' : ' Qs') + '</span>',
     ].join('');
 
     html += '<div class="section-header" onclick="toggleSection(\'' + sectionId + '\', this)">';
     html += '<div class="section-info">';
-    html += '<span class="section-uni">' + (isTips ? '📌 ' : '') + g.university + '</span>';
-    if (metaStr) html += '<span class="section-meta">' + metaStr + '</span>';
+    html += '<span class="section-uni">' + (isTips ? '📌 ' : '') + escHtml(g.university) + '</span>';
+    if (metaStr) html += '<span class="section-meta">' + escHtml(metaStr) + '</span>';
     html += '<div class="section-pills">' + pillHtml + '</div>';
     html += '</div>';
     html += '<span class="s-arrow">▲</span>';
@@ -726,20 +781,25 @@ function renderAll(questions) {
 
 /* ── Build a single Q card ── */
 function buildCard(q) {
-  const colorClass  = 'card-head-' + (q.cardColor || 'blue');
+  const meta        = categoryMeta(q.category);
+  const colorClass  = 'card-head-' + (q.cardColor || meta.color);
   const bodyOpen    = q.defaultOpen ? ' open' : '';
   const arrowSymbol = q.defaultOpen ? '▲' : '▼';
   const questionHtml = q.questionText
-    ? '<div class="polished-q"><strong>✏️ Question:</strong> ' + q.questionText + '</div>'
+    ? '<div class="polished-q"><strong>✏️ Question:</strong> ' + escHtml(q.questionText) + '</div>'
     : '';
-  const answerHtml = parseContent(q.answerHtml || '');
+  const answerHtml = renderAnswer(q.answer || '');
+  const catLabel = q.category ? (meta.icon + ' ' + escHtml(q.category)) : '';
 
   return [
     '<div class="card">',
     '  <div class="card-head ' + colorClass + '" onclick="toggleCard(this)">',
     '    <div class="card-head-left">',
-    '      <span class="qnum">' + (q.questionNumber || 'Q') + '</span>',
-    '      <span class="card-title">' + escHtml(q.topic || 'Untitled') + '</span>',
+    '      <span class="qnum">' + escHtml(q.questionNumber || 'Q') + '</span>',
+    '      <div class="card-title-wrap">',
+    '        <div class="card-title">' + escHtml(q.topic || 'Untitled') + '</div>',
+    catLabel ? '        <div class="card-cat">' + catLabel + '</div>' : '',
+    '      </div>',
     '    </div>',
     '    <span class="c-arrow">' + arrowSymbol + '</span>',
     '  </div>',
@@ -756,71 +816,198 @@ function setContent(html) {
 }
 
 /* ══════════════════════════════════════════
-   CONTENT PARSER  (shortcodes + HTML)
+   ANSWER FORMATTER  —  plain text → rich HTML
+   ════════════════════════════════════════════
+   Supports a lightweight, WhatsApp-style plain-text syntax so
+   answers can be typed directly into the sheet with zero HTML:
+     # Heading            *bold*        _italic_      ~strike~
+     - bullet item         1. numbered item            `inline code`
+     ```lang ... ```       code block (language optional, auto-detected)
+     Col | Col | Col       table row (first row = header)
+     = Formula text        styled formula box
+     TIP: / NOTE: /
+     WARNING: / IMPORTANT: styled callout box (single-line or block)
+     https://...            bare link on its own line → embedded figure
+                            (auto-converts Google Drive share links)
+                            or a clickable resource link if not an image
+   If a row's Answer text already contains real HTML tags, it is treated
+   as "advanced mode" and passed through unchanged (escape hatch for
+   power users who want pixel-level control).
 ═══════════════════════════════════════════ */
-function parseContent(raw) {
+
+function renderAnswer(raw) {
   if (!raw) return '';
-  let h = raw;
 
-  /* ── Code blocks  (escape HTML inside before anything else) ── */
-  h = h.replace(/\{\{code(?::([a-z0-9]+))?\}\}([\s\S]*?)\{\{\/code\}\}/gi,
-    function(_, lang, code) {
-      const esc = code.trim()
-        .replace(/&(?!amp;|lt;|gt;|quot;|#)/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-      return '<pre><code class="' + (lang ? 'language-' + lang : '') + '">' + esc + '</code></pre>';
-    });
+  // Advanced/legacy escape hatch: real HTML tags present → render as-is.
+  if (/<\/?(h[1-6]|table|div|ul|ol|li|p|pre|figure)\b/i.test(raw)) {
+    return raw;
+  }
 
-  /* ── Formula boxes ── */
-  h = h.replace(/\{\{formula-big\}\}([\s\S]*?)\{\{\/formula-big\}\}/gi,
-    '<div class="formula formula-big">$1</div>');
-  h = h.replace(/\{\{formula\}\}([\s\S]*?)\{\{\/formula\}\}/gi,
-    '<div class="formula">$1</div>');
+  let text = raw.replace(/\r\n/g, '\n');
 
-  /* ── Coloured boxes ── */
-  h = h.replace(/\{\{box:(\w+)\}\}([\s\S]*?)\{\{\/box\}\}/gi,
-    function(_, t, c) { return '<div class="box box-' + t + '">' + c + '</div>'; });
-  h = h.replace(/\{\{tip\}\}([\s\S]*?)\{\{\/tip\}\}/gi,    '<div class="box box-green">$1</div>');
-  h = h.replace(/\{\{warn\}\}([\s\S]*?)\{\{\/warn\}\}/gi,   '<div class="box box-orange">$1</div>');
-  h = h.replace(/\{\{note\}\}([\s\S]*?)\{\{\/note\}\}/gi,   '<div class="box box-blue">$1</div>');
-  h = h.replace(/\{\{error\}\}([\s\S]*?)\{\{\/error\}\}/gi, '<div class="box box-red">$1</div>');
-
-  /* ── Diagram boxes ── */
-  h = h.replace(/\{\{tree\}\}([\s\S]*?)\{\{\/tree\}\}/gi, '<div class="tree-box">$1</div>');
-  h = h.replace(/\{\{gate\}\}([\s\S]*?)\{\{\/gate\}\}/gi, '<div class="gate-box">$1</div>');
-
-  /* ── KMap wrapper ── */
-  h = h.replace(/\{\{kmap\}\}([\s\S]*?)\{\{\/kmap\}\}/gi, '<div class="kmap-wrap">$1</div>');
-
-  /* ── Images  {{img:URL|Caption}} ── */
-  h = h.replace(/\{\{img:(https?:\/\/[^|}]+?)(?:\|([^}]*))?\}\}/gi,
-    function(_, url, cap) {
-      const capHtml = cap ? '<figcaption class="img-caption">' + escHtml(cap) + '</figcaption>' : '';
-      return '<figure class="img-figure"><img src="' + url +
-             '" alt="' + escHtml(cap || 'Figure') +
-             '" loading="lazy" class="zoomable"' +
-             ' onclick="openLightbox(\'' + url.replace(/'/g, "\\'") + '\',\'' + escHtml(cap || '').replace(/'/g, "\\'") + '\')">' +
-             capHtml + '</figure>';
-    });
-
-  /* ── Gantt  {{gantt:Task1:2:#1565c0, Task2:1:#2e7d32}} ── */
-  h = h.replace(/\{\{gantt:([\s\S]*?)\}\}/gi, function(_, spec) {
-    const blocks = spec.split(',').map(function(b) {
-      const parts = b.trim().split(':');
-      const label = parts[0] || '';
-      const flex  = parts[1] || '1';
-      const color = parts[2] || '#1565c0';
-      return '<div class="gantt-block" style="flex:' + flex + ';background:' + color + '">' + escHtml(label) + '</div>';
-    }).join('');
-    return '<div class="gantt">' + blocks + '</div>';
+  // 1) Extract fenced code blocks first so nothing inside is touched by other rules
+  const codeBlocks = [];
+  text = text.replace(/```(\w*)\r?\n?([\s\S]*?)```/g, function(_, lang, code) {
+    codeBlocks.push({ lang: lang || '', code: code.replace(/\n$/, '') });
+    return '\n\u0000CB' + (codeBlocks.length - 1) + '\u0001\n';
   });
 
-  /* ── Wrap <table> in scroll div (avoid double-wrapping) ── */
-  h = h.replace(/(?<!<div class="(?:table|kmap)-wrap">)\s*<table/gi, '<div class="table-wrap"><table');
-  h = h.replace(/<\/table>/gi, '</table></div>');
+  const lines = text.split('\n');
+  const out = [];
+
+  let mode = null;       // null | 'p' | 'ul' | 'ol' | 'table' | 'box'
+  let buf = [];
+  let boxType = null;
+  let tableRows = [];
+
+  const BOX_CLASS = { TIP: 'box-green', NOTE: 'box-blue', WARNING: 'box-orange', IMPORTANT: 'box-red' };
+
+  function flush() {
+    if (mode === 'p' && buf.length) {
+      out.push('<p>' + buf.map(inlineFormat).join('<br>') + '</p>');
+    } else if (mode === 'ul' && buf.length) {
+      out.push('<ul>' + buf.map(function(l) { return '<li>' + inlineFormat(l) + '</li>'; }).join('') + '</ul>');
+    } else if (mode === 'ol' && buf.length) {
+      out.push('<ol>' + buf.map(function(l) { return '<li>' + inlineFormat(l) + '</li>'; }).join('') + '</ol>');
+    } else if (mode === 'box' && buf.length) {
+      out.push('<div class="box ' + BOX_CLASS[boxType] + '">' + buf.map(inlineFormat).join('<br>') + '</div>');
+    } else if (mode === 'table' && tableRows.length) {
+      out.push(renderTable(tableRows));
+    }
+    buf = []; tableRows = []; mode = null; boxType = null;
+  }
+
+  function renderTable(rows) {
+    const dataRows = rows.filter(function(r) { return !/^[\s\-:|]+$/.test(r); });
+    if (!dataRows.length) return '';
+    const cells = dataRows.map(function(r) {
+      let arr = r.split('|').map(function(c) { return c.trim(); });
+      if (arr.length && arr[0] === '') arr.shift();
+      if (arr.length && arr[arr.length - 1] === '') arr.pop();
+      return arr;
+    });
+    let html = '<div class="table-wrap"><table>';
+    cells.forEach(function(row, ri) {
+      const tag = ri === 0 ? 'th' : 'td';
+      html += '<tr>' + row.map(function(c) { return '<' + tag + '>' + inlineFormat(c) + '</' + tag + '>'; }).join('') + '</tr>';
+    });
+    html += '</table></div>';
+    return html;
+  }
+
+  function isTableLine(l) {
+    if (!l.includes('|')) return false;
+    const parts = l.split('|').map(function(s) { return s.trim(); }).filter(Boolean);
+    return parts.length >= 2;
+  }
+
+  for (let idx = 0; idx < lines.length; idx++) {
+    const line = lines[idx].trim();
+
+    if (line === '') { flush(); continue; }
+
+    const cbMatch = line.match(/^\u0000CB(\d+)\u0001$/);
+    if (cbMatch) {
+      flush();
+      const blk = codeBlocks[Number(cbMatch[1])];
+      out.push('<pre><code class="' + (blk.lang ? 'language-' + blk.lang : '') + '">' + escHtml(blk.code) + '</code></pre>');
+      continue;
+    }
+
+    let m = line.match(/^#\s+(.+)$/);
+    if (m) { flush(); out.push('<h3>' + inlineFormat(m[1]) + '</h3>'); continue; }
+
+    m = line.match(/^=\s+(.+)$/);
+    if (m) { flush(); out.push('<div class="formula">' + inlineFormat(m[1]) + '</div>'); continue; }
+
+    m = line.match(/^(TIP|NOTE|WARNING|IMPORTANT):\s*(.*)$/i);
+    if (m) {
+      flush();
+      boxType = m[1].toUpperCase(); mode = 'box'; buf = [];
+      if (m[2]) buf.push(m[2]);
+      continue;
+    }
+    if (mode === 'box') { buf.push(line); continue; }
+
+    m = line.match(/^(https?:\/\/\S+)(?:\s*-\s*(.+))?$/);
+    if (m) {
+      flush();
+      const url = driveify(m[1]);
+      const caption = m[2] || '';
+      if (isImageUrl(m[1])) {
+        const capHtml = caption ? '<figcaption class="img-caption">' + escHtml(caption) + '</figcaption>' : '';
+        out.push('<figure class="img-figure"><img src="' + url + '" alt="' + escHtml(caption || 'Figure') +
+          '" loading="lazy" class="zoomable" onclick="openLightbox(\'' + url.replace(/'/g, "\\'") + '\',\'' +
+          escHtml(caption).replace(/'/g, "\\'") + '\')">' + capHtml + '</figure>');
+      } else {
+        out.push('<a class="resource-link" href="' + url + '" target="_blank" rel="noopener">🔗 ' +
+          escHtml(caption || url) + '</a>');
+      }
+      continue;
+    }
+
+    m = line.match(/^[-•]\s+(.+)$/);
+    if (m) { if (mode !== 'ul') { flush(); mode = 'ul'; } buf.push(m[1]); continue; }
+
+    m = line.match(/^\d+[\.\)]\s+(.+)$/);
+    if (m) { if (mode !== 'ol') { flush(); mode = 'ol'; } buf.push(m[1]); continue; }
+
+    if (isTableLine(line)) { if (mode !== 'table') { flush(); mode = 'table'; } tableRows.push(line); continue; }
+
+    if (mode !== 'p') { flush(); mode = 'p'; }
+    buf.push(line);
+  }
+  flush();
+
+  return out.join('\n');
+}
+
+/* ── Inline emphasis: bold *x*, italic _x_, strike ~x~, `code`, auto-link bare URLs ── */
+function inlineFormat(text) {
+  let h = escHtml(text);
+
+  const codeStash = [];
+  h = h.replace(/`([^`\n]+)`/g, function(_, c) {
+    codeStash.push(c);
+    return '\u0000IC' + (codeStash.length - 1) + '\u0001';
+  });
+
+  const urlStash = [];
+  h = h.replace(/https?:\/\/[^\s<]+/g, function(u) {
+    urlStash.push(u);
+    return '\u0000URL' + (urlStash.length - 1) + '\u0001';
+  });
+
+  h = h.replace(/\*([^*\n]+)\*/g, '<strong>$1</strong>');
+  h = h.replace(/_([^_\n]+)_/g, '<em>$1</em>');
+  h = h.replace(/~([^~\n]+)~/g, '<s>$1</s>');
+
+  h = h.replace(/\u0000URL(\d+)\u0001/g, function(_, i) {
+    const u = urlStash[Number(i)];
+    return '<a href="' + u + '" target="_blank" rel="noopener">' + escHtml(u) + '</a>';
+  });
+  h = h.replace(/\u0000IC(\d+)\u0001/g, function(_, i) {
+    return '<code>' + codeStash[Number(i)] + '</code>';
+  });
 
   return h;
+}
+
+/* ── Google Drive share-link → direct embeddable image URL ── */
+function driveify(url) {
+  let m = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
+  m = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
+  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
+  return url;
+}
+
+function isImageUrl(url) {
+  const u = url.toLowerCase();
+  return /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/.test(u)
+      || u.includes('drive.google.com')
+      || u.includes('imgur.com')
+      || u.includes('githubusercontent.com');
 }
 
 /* ══════════════════════════════════════════
@@ -832,7 +1019,6 @@ function toggleCard(head) {
   const open  = body.classList.toggle('open');
   arrow.textContent = open ? '▲' : '▼';
 
-  // Trigger MathJax and hljs on first open
   if (open) {
     body.querySelectorAll('pre code:not(.hljs)').forEach(el => hljs.highlightElement(el));
     if (window.MathJax && window.MathJax.typeset) window.MathJax.typeset([body]);
@@ -872,7 +1058,10 @@ function showToast(msg, ms) {
    UTILS
 ═══════════════════════════════════════════ */
 function escHtml(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function escAttr(s) {
+  return String(s==null?'':s).replace(/'/g, "\\'");
 }
 </script>
 </body>
