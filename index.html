@@ -227,32 +227,32 @@ a{color:var(--blue);}
 .card-body{padding:14px;display:none;}
 .card-body.open{display:block;}
 
-/* ── Answer Content Styles (output of the smart formatter) ── */
-.answer-body h3{color:var(--blue);font-size:13px;font-weight:700;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
-.answer-body h3:first-child{margin-top:0;}
-.answer-body p{margin:5px 0;font-size:13px;}
-.answer-body ul,.answer-body ol{padding-left:20px;margin:6px 0;}
-.answer-body li{margin:3px 0;font-size:13px;}
-.answer-body strong{color:var(--navy);}
+/* ── Rich Content Styles (output of the smart formatter — used for BOTH question & answer) ── */
+.rich-content h3{color:var(--blue);font-size:13px;font-weight:700;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
+.rich-content h3:first-child{margin-top:0;}
+.rich-content p{margin:5px 0;font-size:13px;}
+.rich-content ul,.rich-content ol{padding-left:20px;margin:6px 0;}
+.rich-content li{margin:3px 0;font-size:13px;}
+.rich-content strong{color:var(--navy);}
 
 /* Code */
-.answer-body pre{
+.rich-content pre{
   background:var(--code-bg);color:var(--code-fg);padding:13px 15px;
   border-radius:8px;overflow-x:auto;font-size:12px;margin:8px 0;
   font-family:var(--ff-mono);border:1px solid #30363d;line-height:1.65;
 }
-.answer-body code{
+.rich-content code{
   background:#e8eaf6;color:#283593;padding:1px 6px;border-radius:4px;
   font-family:var(--ff-mono);font-size:11px;
 }
-.answer-body pre code{background:none;color:inherit;padding:0;font-size:12px;}
+.rich-content pre code{background:none;color:inherit;padding:0;font-size:12px;}
 
 /* Tables */
 .table-wrap{overflow-x:auto;margin:10px 0;border-radius:6px;}
-.answer-body table{width:100%;border-collapse:collapse;font-size:12px;}
-.answer-body th{background:var(--blue);color:#fff;padding:7px 10px;text-align:left;font-weight:600;}
-.answer-body td{padding:7px 10px;border:1px solid var(--border);}
-.answer-body tr:nth-child(even) td{background:#f5f9ff;}
+.rich-content table{width:100%;border-collapse:collapse;font-size:12px;}
+.rich-content th{background:var(--blue);color:#fff;padding:7px 10px;text-align:left;font-weight:600;}
+.rich-content td{padding:7px 10px;border:1px solid var(--border);}
+.rich-content tr:nth-child(even) td{background:#f5f9ff;}
 
 /* Formula boxes */
 .formula{
@@ -268,12 +268,18 @@ a{color:var(--blue);}
 .box-orange{background:#fff3e0;border-left:4px solid var(--accent);}
 .box-red   {background:#fce4ec;border-left:4px solid var(--red);}
 
-/* Polished question highlight */
+/* Polished question highlight — wraps a .rich-content block */
 .polished-q{
   background:#fffde7;border:1px solid #f9a825;border-radius:6px;
-  padding:9px 12px;margin-bottom:12px;font-size:12px;color:#4a3600;
+  padding:10px 13px;margin-bottom:12px;
 }
-.polished-q strong{color:#e65100;}
+.polished-q-label{
+  font-size:10.5px;font-weight:700;color:#e65100;text-transform:uppercase;
+  letter-spacing:.5px;margin-bottom:6px;
+}
+.polished-q .rich-content{color:#4a3600;}
+.polished-q .rich-content p{font-size:13px;}
+.polished-q .rich-content h3{color:#e65100;border-bottom-color:#f9a825;}
 
 /* Images */
 .img-figure{text-align:center;margin:12px 0;}
@@ -283,6 +289,15 @@ a{color:var(--blue);}
 }
 .img-figure img.zoomable:hover{transform:scale(1.01);box-shadow:0 6px 20px rgba(0,0,0,.15);}
 .img-caption{font-size:11px;color:var(--muted);margin-top:5px;font-style:italic;}
+
+/* Image failed-to-load fallback message */
+.img-error{
+  background:#fce4ec;border:1.5px dashed #c62828;border-radius:8px;
+  padding:14px 16px;margin:10px 0;font-size:12px;color:#7a1f1f;
+  text-align:center;line-height:1.7;
+}
+.img-error a{color:#c62828;font-weight:700;text-decoration:underline;}
+.img-error .img-caption{color:#7a1f1f;opacity:.75;}
 
 /* Generic resource link (non-image URL pasted on its own line) */
 .resource-link{
@@ -327,7 +342,7 @@ a{color:var(--blue);}
   .filter-bar{top:51px;padding:8px 12px;}
   .category-chips{top:97px;padding:7px 12px;}
   .content-area{padding:12px 10px 40px;}
-  .answer-body pre{font-size:11px;}
+  .rich-content pre{font-size:11px;}
   .formula{font-size:12px;}
   .login-card{padding:28px 22px;}
 }
@@ -431,7 +446,7 @@ a{color:var(--blue);}
    Get it from: Apps Script → Deploy → Manage Deployments → copy URL
    Format: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
    ══════════════════════════════════════════════════════════ */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbz1f87iDB5QPwcO5x8iw8Z2gniWBKwnAlyIMJRL0pxoiKe3kDblFL0APD1fpghRQ2JZvA/exec';
+const GAS_URL = 'PASTE_YOUR_GAS_DEPLOYMENT_URL_HERE';
 
 /* ══════════════════════════════════════════
    CATEGORY → ICON / COLOR LOOKUP
@@ -786,9 +801,10 @@ function buildCard(q) {
   const bodyOpen    = q.defaultOpen ? ' open' : '';
   const arrowSymbol = q.defaultOpen ? '▲' : '▼';
   const questionHtml = q.questionText
-    ? '<div class="polished-q"><strong>✏️ Question:</strong> ' + escHtml(q.questionText) + '</div>'
+    ? '<div class="polished-q"><div class="polished-q-label">✏️ Question</div><div class="rich-content">' +
+      formatContent(q.questionText) + '</div></div>'
     : '';
-  const answerHtml = renderAnswer(q.answer || '');
+  const answerHtml = formatContent(q.answer || '');
   const catLabel = q.category ? (meta.icon + ' ' + escHtml(q.category)) : '';
 
   return [
@@ -805,7 +821,7 @@ function buildCard(q) {
     '  </div>',
     '  <div class="card-body' + bodyOpen + '">',
     '    ' + questionHtml,
-    '    <div class="answer-body">' + answerHtml + '</div>',
+    '    <div class="rich-content">' + answerHtml + '</div>',
     '  </div>',
     '</div>',
   ].join('\n');
@@ -819,7 +835,7 @@ function setContent(html) {
    ANSWER FORMATTER  —  plain text → rich HTML
    ════════════════════════════════════════════
    Supports a lightweight, WhatsApp-style plain-text syntax so
-   answers can be typed directly into the sheet with zero HTML:
+   answers AND questions can be typed directly into the sheet with zero HTML:
      # Heading            *bold*        _italic_      ~strike~
      - bullet item         1. numbered item            `inline code`
      ```lang ... ```       code block (language optional, auto-detected)
@@ -828,14 +844,17 @@ function setContent(html) {
      TIP: / NOTE: /
      WARNING: / IMPORTANT: styled callout box (single-line or block)
      https://...            bare link on its own line → embedded figure
-                            (auto-converts Google Drive share links)
+                            (auto-converts Google Drive share links, with
+                            automatic fallback + a friendly error message
+                            if the image still can't be loaded)
                             or a clickable resource link if not an image
-   If a row's Answer text already contains real HTML tags, it is treated
+   If a row's text already contains real HTML tags, it is treated
    as "advanced mode" and passed through unchanged (escape hatch for
-   power users who want pixel-level control).
+   power users who want pixel-level control). Used for BOTH the
+   QuestionText and Answer columns.
 ═══════════════════════════════════════════ */
 
-function renderAnswer(raw) {
+function formatContent(raw) {
   if (!raw) return '';
 
   // Advanced/legacy escape hatch: real HTML tags present → render as-is.
@@ -932,16 +951,13 @@ function renderAnswer(raw) {
     m = line.match(/^(https?:\/\/\S+)(?:\s*-\s*(.+))?$/);
     if (m) {
       flush();
-      const url = driveify(m[1]);
+      const rawUrl  = m[1];
       const caption = m[2] || '';
-      if (isImageUrl(m[1])) {
-        const capHtml = caption ? '<figcaption class="img-caption">' + escHtml(caption) + '</figcaption>' : '';
-        out.push('<figure class="img-figure"><img src="' + url + '" alt="' + escHtml(caption || 'Figure') +
-          '" loading="lazy" class="zoomable" onclick="openLightbox(\'' + url.replace(/'/g, "\\'") + '\',\'' +
-          escHtml(caption).replace(/'/g, "\\'") + '\')">' + capHtml + '</figure>');
+      if (isImageUrl(rawUrl)) {
+        out.push(buildFigureHtml(rawUrl, caption));
       } else {
-        out.push('<a class="resource-link" href="' + url + '" target="_blank" rel="noopener">🔗 ' +
-          escHtml(caption || url) + '</a>');
+        out.push('<a class="resource-link" href="' + rawUrl + '" target="_blank" rel="noopener">🔗 ' +
+          escHtml(caption || rawUrl) + '</a>');
       }
       continue;
     }
@@ -993,13 +1009,35 @@ function inlineFormat(text) {
   return h;
 }
 
-/* ── Google Drive share-link → direct embeddable image URL ── */
+/* ══════════════════════════════════════════
+   IMAGE EMBEDDING — Google Drive reliability fix
+   ════════════════════════════════════════════
+   Google's old `uc?export=view&id=` hotlink format frequently fails for
+   <img> tags — Drive often serves an HTML interstitial page instead of
+   the actual image bytes when the file is hotlinked from an external
+   site. We use the `thumbnail` endpoint instead (the same one Drive's
+   own UI uses for previews — much more reliable for direct embedding),
+   with a second CDN format as an automatic fallback, and a friendly
+   on-page message (instead of a broken image icon) if both fail.
+═══════════════════════════════════════════ */
+
+/** Extracts a Drive file ID from any common share-link format. */
 function driveify(url) {
+  let id = null;
   let m = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
-  m = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
-  if (m) return 'https://drive.google.com/uc?export=view&id=' + m[1];
-  return url;
+  if (m) id = m[1];
+  if (!id) { m = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/); if (m) id = m[1]; }
+  if (!id) { m = url.match(/[?&]id=([a-zA-Z0-9_-]+)/); if (m) id = m[1]; }
+
+  if (!id) {
+    // Not a recognizable Drive link — leave it alone (Imgur, GitHub, direct .png/.jpg, etc.)
+    return { primary: url, fallback: null, original: url };
+  }
+  return {
+    primary : 'https://drive.google.com/thumbnail?id=' + id + '&sz=w1600',
+    fallback: 'https://lh3.googleusercontent.com/d/' + id,
+    original: 'https://drive.google.com/file/d/' + id + '/view',
+  };
 }
 
 function isImageUrl(url) {
@@ -1008,6 +1046,47 @@ function isImageUrl(url) {
       || u.includes('drive.google.com')
       || u.includes('imgur.com')
       || u.includes('githubusercontent.com');
+}
+
+/** Builds the <figure> HTML with fallback + error-handling data attributes. */
+function buildFigureHtml(rawUrl, caption) {
+  const d = driveify(rawUrl);
+  const capHtml = caption ? '<figcaption class="img-caption">' + escHtml(caption) + '</figcaption>' : '';
+  return '<figure class="img-figure">' +
+    '<img src="' + d.primary + '"' +
+    ' data-fallback="' + escHtml(d.fallback || '') + '"' +
+    ' data-original="' + escHtml(d.original) + '"' +
+    ' data-caption="' + escHtml(caption) + '"' +
+    ' alt="' + escHtml(caption || 'Figure') + '"' +
+    ' loading="lazy" class="zoomable"' +
+    ' onerror="handleImgError(this)"' +
+    ' onclick="openLightbox(this.src, this.dataset.caption)">' +
+    capHtml + '</figure>';
+}
+
+/**
+ * Called automatically when an embedded image fails to load.
+ * Tries one fallback CDN format; if that also fails, replaces the image
+ * with a clear, actionable message instead of leaving a broken icon.
+ */
+function handleImgError(img) {
+  if (!img.dataset.triedFallback && img.dataset.fallback) {
+    img.dataset.triedFallback = '1';
+    img.src = img.dataset.fallback;
+    return;
+  }
+  const original = img.dataset.original || '#';
+  const caption  = img.dataset.caption || '';
+  const box = document.createElement('div');
+  box.className = 'img-error';
+  box.innerHTML =
+    '⚠️ This image could not be loaded.<br>' +
+    'Make sure the file is shared as <strong>"Anyone with the link"</strong>.<br>' +
+    '<a href="' + original + '" target="_blank" rel="noopener">Open the original link →</a>' +
+    (caption ? '<div class="img-caption">' + escHtml(caption) + '</div>' : '');
+  const fig = img.closest('figure');
+  if (fig && fig.parentNode) fig.replaceWith(box);
+  else if (img.parentNode) img.replaceWith(box);
 }
 
 /* ══════════════════════════════════════════
