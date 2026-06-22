@@ -95,6 +95,13 @@ a{color:var(--blue);}
 .login-spinner{display:inline-block;width:14px;height:14px;border:2px solid rgba(255,255,255,.4);
   border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px;}
 .login-divider{text-align:center;margin-top:20px;color:var(--muted);font-size:11px;}
+.login-divider a{color:var(--blue);font-weight:600;text-decoration:none;}
+.login-divider a:hover{text-decoration:underline;}
+.otp-sent-msg{text-align:center;font-size:12.5px;color:var(--muted);margin-bottom:6px;line-height:1.6;}
+.otp-sent-msg strong{color:var(--navy);font-size:13px;}
+.otp-input{text-align:center;font-size:22px;letter-spacing:8px;font-family:var(--ff-mono);font-weight:600;}
+.register-success-icon{text-align:center;font-size:40px;margin-bottom:6px;}
+.register-success-msg{text-align:center;font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px;}
 
 /* ═══════════════════════════════════════════════════════════
    APP SCREEN
@@ -137,6 +144,7 @@ a{color:var(--blue);}
 }
 .filter-bar select:focus,.filter-bar input:focus{border-color:var(--blue);}
 .filter-bar select{min-width:118px;}
+#selCategory{min-width:150px;font-weight:600;border-color:#c5cae9;background:#f5f6fd;}
 .search-wrap{position:relative;flex:1;min-width:160px;}
 .search-wrap input{width:100%;padding-left:30px;}
 .search-icon{position:absolute;left:9px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:13px;pointer-events:none;}
@@ -150,22 +158,8 @@ a{color:var(--blue);}
   font-size:11px;font-weight:600;white-space:nowrap;margin-left:auto;
 }
 
-/* ── Category Quick-Chips ── */
-.category-chips{
-  background:#fff;border-bottom:1px solid var(--border);
-  padding:8px 18px;display:flex;gap:6px;flex-wrap:wrap;
-  position:sticky;top:103px;z-index:180;
-}
-.cat-chip{
-  background:var(--bg);border:1.5px solid var(--border);color:var(--muted);
-  padding:5px 12px;border-radius:16px;font-size:11.5px;font-weight:600;
-  transition:all .15s;white-space:nowrap;display:flex;align-items:center;gap:4px;
-}
-.cat-chip:hover{border-color:var(--blue);color:var(--blue);}
-.cat-chip.active{background:var(--blue);border-color:var(--blue);color:#fff;}
-
 /* ── Content Area ── */
-.content-area{padding:16px 16px 40px;max-width:900px;margin:0 auto;}
+.content-area{padding:16px 16px 40px;max-width:760px;margin:0 auto;}
 
 /* ── Loading ── */
 .loading-wrap{text-align:center;padding:60px 20px;color:var(--muted);}
@@ -177,55 +171,46 @@ a{color:var(--blue);}
 }
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* ── Section Header ── */
-.section-header{
-  background:linear-gradient(90deg,var(--navy),#1a2f5e);
-  color:#fff;padding:11px 16px;border-radius:var(--radius) var(--radius) 0 0;
-  margin-top:22px;display:flex;align-items:center;justify-content:space-between;
-  cursor:pointer;user-select:none;gap:10px;
+/* ── Question Card — question is the hero, metadata is tags ── */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  margin-bottom:10px;overflow:hidden;transition:box-shadow .15s,border-color .15s;
 }
-.section-header:first-child{margin-top:0;}
-.section-info{flex:1;min-width:0;}
-.section-uni{font-size:14px;font-weight:700;display:block;line-height:1.3;}
-.section-meta{font-size:11px;color:#90caf9;display:block;margin-top:2px;}
-.section-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
-.section-pill{
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);
-  color:#e3f2fd;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500;
-}
-.section-pill-accent{background:rgba(245,127,23,.35);border-color:var(--accent);color:#ffe082;}
-.s-arrow{font-size:11px;color:#90caf9;flex-shrink:0;transition:transform .25s;}
-.section-body{
-  border:1px solid var(--border);border-top:none;
-  border-radius:0 0 var(--radius) var(--radius);
-  margin-bottom:6px;overflow:hidden;
-}
-.section-body.collapsed{display:none;}
-
-/* ── Question Card ── */
-.card{background:var(--card);margin:0;border-bottom:1px solid var(--border);overflow:hidden;}
-.card:last-child{border-bottom:none;}
+.card:hover{box-shadow:0 3px 14px rgba(13,27,42,.07);border-color:#cfd8e3;}
 .card-head{
-  padding:11px 14px;cursor:pointer;display:flex;justify-content:space-between;
-  align-items:center;user-select:none;gap:8px;
+  padding:14px 16px 4px;cursor:pointer;display:flex;gap:10px;
+  align-items:flex-start;user-select:none;
 }
-.card-head-blue  {background:linear-gradient(90deg,var(--blue),var(--blue-l));}
-.card-head-green {background:linear-gradient(90deg,var(--green),var(--green-l));}
-.card-head-red   {background:linear-gradient(90deg,var(--red),var(--red-l));}
-.card-head-purple{background:linear-gradient(90deg,var(--purple),var(--purple-l));}
-.card-head-teal  {background:linear-gradient(90deg,var(--teal),var(--teal-l));}
-.card-head-orange{background:linear-gradient(90deg,var(--orange),var(--orange-l));}
-.card-head-left{display:flex;align-items:center;flex:1;min-width:0;gap:8px;}
-.qnum{
-  background:rgba(255,255,255,.22);border-radius:4px;
-  padding:1px 7px;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;
+.q-badge{
+  flex-shrink:0;color:#fff;font-weight:700;font-size:11.5px;
+  padding:4px 10px;border-radius:7px;line-height:1.3;margin-top:1px;
 }
-.card-title-wrap{min-width:0;flex:1;}
-.card-title{font-size:13px;font-weight:600;color:#fff;line-height:1.3;}
-.card-cat{font-size:10px;color:rgba(255,255,255,.78);margin-top:1px;}
-.c-arrow{font-size:10px;color:rgba(255,255,255,.7);flex-shrink:0;transition:transform .2s;}
-.card-body{padding:14px;display:none;}
+.q-badge-blue  {background:var(--blue);}
+.q-badge-green {background:var(--green-l);}
+.q-badge-red   {background:var(--red-l);}
+.q-badge-purple{background:var(--purple-l);}
+.q-badge-teal  {background:var(--teal-l);}
+.q-badge-orange{background:var(--orange-l);}
+.card-question-preview{
+  flex:1;font-size:14.5px;font-weight:600;color:var(--navy);line-height:1.45;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.c-arrow{font-size:10px;color:var(--muted);flex-shrink:0;transition:transform .2s;margin-top:4px;}
+
+/* Metadata tag row — secondary, small, unobtrusive */
+.card-tags{padding:8px 16px 13px;display:flex;flex-wrap:wrap;gap:5px;}
+.tag{
+  font-size:10.5px;padding:2.5px 9px;border-radius:10px;font-weight:500;
+  background:#f0f4f8;color:var(--muted);border:1px solid var(--border);white-space:nowrap;
+}
+.tag-university{background:#e3f2fd;color:#1565c0;border-color:#bbdefb;}
+.tag-category{background:#fff3e0;color:#e65100;border-color:#ffe0b2;}
+.tag-topic{background:#f3e5f5;color:#6a1b9a;border-color:#e1bee7;}
+.tag-examtype-tips{background:#fff3e0;color:#e65100;border-color:#ffe0b2;font-weight:700;}
+
+.card-body{padding:0 16px 16px;display:none;}
 .card-body.open{display:block;}
+.card-body-divider{border-top:1px solid var(--border);margin:0 0 12px;}
 
 /* ── Rich Content Styles (output of the smart formatter — used for BOTH question & answer) ── */
 .rich-content h3{color:var(--blue);font-size:13px;font-weight:700;margin:14px 0 6px;padding-bottom:4px;border-bottom:1px solid var(--border);}
@@ -280,6 +265,13 @@ a{color:var(--blue);}
 .polished-q .rich-content{color:#4a3600;}
 .polished-q .rich-content p{font-size:13px;}
 .polished-q .rich-content h3{color:#e65100;border-bottom-color:#f9a825;}
+
+/* Locked answer (Question-Only access tier) */
+.answer-locked{
+  background:#f5f6fa;border:1.5px dashed #9fa8da;border-radius:8px;
+  padding:16px;text-align:center;font-size:13px;color:#3949ab;line-height:1.7;
+}
+.answer-locked span{display:block;font-size:11.5px;color:#7986cb;margin-top:4px;}
 
 /* Images */
 .img-figure{text-align:center;margin:12px 0;}
@@ -340,11 +332,11 @@ a{color:var(--blue);}
   .site-header{padding:10px 14px;}
   .site-header-title h1{font-size:15px;}
   .filter-bar{top:51px;padding:8px 12px;}
-  .category-chips{top:97px;padding:7px 12px;}
   .content-area{padding:12px 10px 40px;}
   .rich-content pre{font-size:11px;}
   .formula{font-size:12px;}
   .login-card{padding:28px 22px;}
+  .card-question-preview{font-size:13.5px;}
 }
 </style>
 </head>
@@ -359,17 +351,51 @@ a{color:var(--blue);}
     <div class="login-title">Exam Solutions Portal</div>
     <div class="login-subtitle">University Teacher Aspirants · Bangladesh</div>
 
-    <label class="login-label" for="loginUser">Username</label>
-    <input id="loginUser" class="login-input" type="text" placeholder="Enter username"
-           autocomplete="username" onkeydown="if(event.key==='Enter') document.getElementById('loginPass').focus()">
+    <!-- STEP 1: enter email -->
+    <div id="viewEmail">
+      <label class="login-label" for="loginEmail">Email Address</label>
+      <input id="loginEmail" class="login-input" type="email" placeholder="you@example.com"
+             autocomplete="email" onkeydown="if(event.key==='Enter') requestOtp()">
+      <div id="emailErr" class="login-err"></div>
+      <button class="login-btn" id="sendCodeBtn" onclick="requestOtp()">Send Verification Code</button>
+      <div class="login-divider">New here? <a href="#" onclick="showView('register'); return false;">Register for access</a></div>
+    </div>
 
-    <label class="login-label" for="loginPass">Password</label>
-    <input id="loginPass" class="login-input" type="password" placeholder="Enter password"
-           autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+    <!-- STEP 2: enter OTP -->
+    <div id="viewOtp" style="display:none">
+      <p class="otp-sent-msg">A 6-digit code was sent to<br><strong id="otpEmailDisplay"></strong></p>
+      <label class="login-label" for="loginOtp">Verification Code</label>
+      <input id="loginOtp" class="login-input otp-input" type="text" inputmode="numeric" maxlength="6"
+             placeholder="000000" autocomplete="one-time-code" onkeydown="if(event.key==='Enter') verifyOtp()">
+      <div id="otpErr" class="login-err"></div>
+      <button class="login-btn" id="verifyBtn" onclick="verifyOtp()">Verify &amp; Sign In</button>
+      <div class="login-divider">
+        <a href="#" onclick="requestOtp(true); return false;">Resend code</a>
+        &nbsp;·&nbsp;
+        <a href="#" onclick="showView('email'); return false;">Use a different email</a>
+      </div>
+    </div>
 
-    <div id="loginErr" class="login-err"></div>
-    <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In</button>
-    <div class="login-divider">Secure login · Session valid for 24 hours</div>
+    <!-- Self-registration -->
+    <div id="viewRegister" style="display:none">
+      <label class="login-label" for="regName">Full Name</label>
+      <input id="regName" class="login-input" type="text" placeholder="Your name" autocomplete="name">
+      <label class="login-label" for="regEmail">Email Address</label>
+      <input id="regEmail" class="login-input" type="email" placeholder="you@example.com"
+             autocomplete="email" onkeydown="if(event.key==='Enter') submitRegistration()">
+      <div id="regErr" class="login-err"></div>
+      <button class="login-btn" id="regBtn" onclick="submitRegistration()">Request Access</button>
+      <div class="login-divider"><a href="#" onclick="showView('email'); return false;">← Back to login</a></div>
+    </div>
+
+    <!-- Registration success -->
+    <div id="viewRegisterSuccess" style="display:none">
+      <div class="register-success-icon">✅</div>
+      <p class="register-success-msg">Your request has been received. You'll be able to log in once an administrator approves your account.</p>
+      <button class="login-btn" onclick="showView('email')">Back to Login</button>
+    </div>
+
+    <div class="login-divider" style="margin-top:18px">Secure login · No passwords to share or forget</div>
   </div>
 </div>
 
@@ -392,6 +418,9 @@ a{color:var(--blue);}
 
   <!-- Filter Bar -->
   <div class="filter-bar">
+    <select id="selCategory" onchange="applyFilters()">
+      <option value="">🗂️ All Topics</option>
+    </select>
     <select id="selUniversity" onchange="applyFilters()">
       <option value="">All Universities</option>
     </select>
@@ -410,11 +439,6 @@ a{color:var(--blue);}
     </div>
     <button class="btn-clear" onclick="clearFilters()">Clear ✕</button>
     <span class="stats-pill" id="statsPill">Loading…</span>
-  </div>
-
-  <!-- Category Quick-Chips -->
-  <div class="category-chips" id="categoryChips">
-    <!-- populated dynamically -->
   </div>
 
   <!-- Content -->
@@ -446,7 +470,7 @@ a{color:var(--blue);}
    Get it from: Apps Script → Deploy → Manage Deployments → copy URL
    Format: https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec
    ══════════════════════════════════════════════════════════ */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbzELeCx53vwLN9VvCdsERFPtMeAc6gjVccg0fWnFtRhMc7qdPwtc351ggZpOvtCKCnSvA/exec';
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwPUTQ5W5jtGjtu4sP98BgC6tD57Cf0uIQ_i-cW05CX_vM4TISniaVLRntlDJr-k7XK/exec';
 
 /* ══════════════════════════════════════════
    CATEGORY → ICON / COLOR LOOKUP
@@ -481,7 +505,7 @@ const S = {
   user     : null,
   questions: [],
   options  : {},          // { universities[], departments[], years[], examTypes[], categories[] }
-  activeCategory: '',
+  pendingEmail: '',       // email currently awaiting OTP verification
   searchTimer: null,
 };
 
@@ -532,34 +556,60 @@ async function api(params) {
   return res.json();
 }
 
-async function sha256(str) {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+function isValidEmail(e) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 }
 
 /* ══════════════════════════════════════════
-   AUTH
+   AUTH  —  passwordless email + OTP
+   ════════════════════════════════════════════
+   Login is two steps: (1) request a one-time code by email,
+   (2) verify the code to receive a session token. There is no
+   password to share — every login needs a fresh code sent to the
+   account's actual inbox. Registration creates a Pending row in the
+   USERS sheet; an administrator approves access there directly
+   (no script-running required).
 ═══════════════════════════════════════════ */
-async function doLogin() {
-  const username = document.getElementById('loginUser').value.trim();
-  const password = document.getElementById('loginPass').value;
-  const errEl    = document.getElementById('loginErr');
-  const btn      = document.getElementById('loginBtn');
 
-  errEl.style.display = 'none';
-  if (!username || !password) {
-    showLoginErr('Please enter your username and password.');
-    return;
-  }
+async function requestOtp(isResend) {
+  const email = isResend ? S.pendingEmail : document.getElementById('loginEmail').value.trim();
 
-  btn.disabled = true;
-  btn.innerHTML = '<span class="login-spinner"></span>Signing in…';
+  if (!email)            { showFieldErr(isResend ? 'otpErr' : 'emailErr', 'Please enter your email address.'); return; }
+  if (!isValidEmail(email)) { showFieldErr(isResend ? 'otpErr' : 'emailErr', 'Please enter a valid email address.'); return; }
+
+  const btn = document.getElementById('sendCodeBtn');
+  const originalLabel = btn.innerHTML;
+  if (!isResend) { btn.disabled = true; btn.innerHTML = '<span class="login-spinner"></span>Sending…'; }
 
   try {
-    const pwHash = await sha256(password);
-    const res    = await api({ action: 'login', username, pwHash });
+    const res = await api({ action: 'requestOtp', email });
+    if (!res.success) {
+      showFieldErr(isResend ? 'otpErr' : 'emailErr', res.error || 'Could not send the code. Please try again.');
+      return;
+    }
+    S.pendingEmail = email;
+    document.getElementById('otpEmailDisplay').textContent = email;
+    document.getElementById('loginOtp').value = '';
+    showView('otp');
+    showToast('Verification code sent to ' + email);
+  } catch(e) {
+    showFieldErr(isResend ? 'otpErr' : 'emailErr', 'Connection error: ' + e.message);
+  } finally {
+    if (!isResend) { btn.disabled = false; btn.innerHTML = originalLabel; }
+  }
+}
 
-    if (!res.success) { showLoginErr(res.error || 'Login failed.'); return; }
+async function verifyOtp() {
+  const otp = document.getElementById('loginOtp').value.trim();
+  if (!/^\d{6}$/.test(otp)) { showFieldErr('otpErr', 'Please enter the 6-digit code from your email.'); return; }
+
+  const btn = document.getElementById('verifyBtn');
+  const originalLabel = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = '<span class="login-spinner"></span>Verifying…';
+
+  try {
+    const res = await api({ action: 'verifyOtp', email: S.pendingEmail, otp });
+    if (!res.success) { showFieldErr('otpErr', res.error || 'Invalid or expired code.'); return; }
 
     S.token = res.token;
     S.user  = res.user;
@@ -567,35 +617,72 @@ async function doLogin() {
     showApp();
     await loadAll();
   } catch(e) {
-    showLoginErr('Connection error. Check your internet or GAS URL. (' + e.message + ')');
+    showFieldErr('otpErr', 'Connection error: ' + e.message);
   } finally {
-    btn.disabled = false;
-    btn.innerHTML = 'Sign In';
+    btn.disabled = false; btn.innerHTML = originalLabel;
+  }
+}
+
+async function submitRegistration() {
+  const name  = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+
+  if (!name)  { showFieldErr('regErr', 'Please enter your name.'); return; }
+  if (!email || !isValidEmail(email)) { showFieldErr('regErr', 'Please enter a valid email address.'); return; }
+
+  const btn = document.getElementById('regBtn');
+  const originalLabel = btn.innerHTML;
+  btn.disabled = true; btn.innerHTML = '<span class="login-spinner"></span>Submitting…';
+
+  try {
+    const res = await api({ action: 'register', name, email });
+    if (!res.success) { showFieldErr('regErr', res.error || 'Registration failed. Please try again.'); return; }
+    showView('registerSuccess');
+  } catch(e) {
+    showFieldErr('regErr', 'Connection error: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.innerHTML = originalLabel;
   }
 }
 
 async function doLogout() {
   try { await api({ action: 'logout', token: S.token }); } catch(e) {}
-  S.token = null; S.user = null; S.questions = [];
+  S.token = null; S.user = null; S.questions = []; S.pendingEmail = '';
   localStorage.removeItem('eps_session');
   showLogin();
 }
 
-function showLoginErr(msg) {
-  const el = document.getElementById('loginErr');
+function showFieldErr(id, msg) {
+  const el = document.getElementById(id);
   el.textContent = msg;
   el.style.display = 'block';
+}
+
+function clearFieldErrs() {
+  ['emailErr', 'otpErr', 'regErr'].forEach(function(id) {
+    const el = document.getElementById(id);
+    el.style.display = 'none';
+    el.textContent = '';
+  });
 }
 
 /* ══════════════════════════════════════════
    SCREEN TRANSITIONS
 ═══════════════════════════════════════════ */
+function showView(name) {
+  const ids = { email: 'viewEmail', otp: 'viewOtp', register: 'viewRegister', registerSuccess: 'viewRegisterSuccess' };
+  Object.values(ids).forEach(function(id) { document.getElementById(id).style.display = 'none'; });
+  document.getElementById(ids[name]).style.display = 'block';
+  clearFieldErrs();
+}
+
 function showLogin() {
   document.getElementById('loginScreen').style.display = 'flex';
   document.getElementById('appScreen').style.display   = 'none';
-  document.getElementById('loginUser').value = '';
-  document.getElementById('loginPass').value = '';
-  document.getElementById('loginErr').style.display = 'none';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('regName').value = '';
+  document.getElementById('regEmail').value = '';
+  showView('email');
 }
 
 function showApp() {
@@ -604,7 +691,7 @@ function showApp() {
 
   const chip = document.getElementById('userChip');
   const roleLabel = S.user.role === 'admin' ? ' <span class="role-badge">ADMIN</span>' : '';
-  chip.innerHTML = '👤 ' + S.user.username + roleLabel;
+  chip.innerHTML = '👤 ' + escHtml(S.user.name || S.user.email) + roleLabel;
 }
 
 /* ══════════════════════════════════════════
@@ -625,7 +712,6 @@ async function loadAll() {
     S.questions = questionsRes.questions;
 
     populateFilters(filtersRes);
-    populateCategoryChips(filtersRes.categories);
     renderAll(S.questions);
   } catch(e) {
     setContent('<div class="no-results"><div style="font-size:32px">⚠️</div><p>Failed to load: ' + e.message + '</p></div>');
@@ -640,7 +726,7 @@ async function fetchQuestions() {
     department : document.getElementById('selDept').value,
     year       : document.getElementById('selYear').value,
     examtype   : document.getElementById('selType').value,
-    category   : S.activeCategory,
+    category   : document.getElementById('selCategory').value,
     search     : document.getElementById('searchInput').value.trim(),
   };
   try {
@@ -657,6 +743,7 @@ async function fetchQuestions() {
    FILTERS
 ═══════════════════════════════════════════ */
 function populateFilters(opts) {
+  fillCategorySelect(opts.categories);
   fill('selUniversity', opts.universities, 'All Universities');
   fill('selDept',       opts.departments,  'All Depts');
   fill('selYear',       opts.years,        'All Years');
@@ -675,37 +762,27 @@ function fill(id, items, placeholder) {
   });
 }
 
-function populateCategoryChips(categories) {
-  const wrap = document.getElementById('categoryChips');
-  if (!categories || !categories.length) { wrap.style.display = 'none'; return; }
-  wrap.style.display = 'flex';
-
-  let html = '<button class="cat-chip' + (S.activeCategory === '' ? ' active' : '') +
-             '" onclick="setCategory(\'\')">🗂️ All Topics</button>';
-  categories.forEach(function(cat) {
+/** Category select gets icon-decorated labels, e.g. "💻 Programming". */
+function fillCategorySelect(categories) {
+  const sel = document.getElementById('selCategory');
+  const cur = sel.value;
+  sel.innerHTML = '<option value="">🗂️ All Topics</option>';
+  (categories || []).forEach(function(cat) {
     const meta = categoryMeta(cat);
-    const isActive = S.activeCategory === cat;
-    html += '<button class="cat-chip' + (isActive ? ' active' : '') + '" onclick="setCategory(\'' +
-            escAttr(cat) + '\')">' + meta.icon + ' ' + escHtml(cat) + '</button>';
+    const opt = document.createElement('option');
+    opt.value = cat; opt.textContent = meta.icon + ' ' + cat;
+    if (cat === cur) opt.selected = true;
+    sel.appendChild(opt);
   });
-  wrap.innerHTML = html;
-}
-
-function setCategory(cat) {
-  S.activeCategory = cat;
-  populateCategoryChips(S.options.categories);
-  fetchQuestions();
 }
 
 function applyFilters() { fetchQuestions(); }
 
 function clearFilters() {
-  ['selUniversity','selDept','selYear','selType'].forEach(id => {
+  ['selCategory','selUniversity','selDept','selYear','selType'].forEach(id => {
     document.getElementById(id).value = '';
   });
   document.getElementById('searchInput').value = '';
-  S.activeCategory = '';
-  populateCategoryChips(S.options.categories);
   fetchQuestions();
 }
 
@@ -726,56 +803,16 @@ function renderAll(questions) {
     return;
   }
 
-  // Group: university > dept+year+examType
-  const groups = new Map();
-  questions.forEach(function(q) {
-    const groupKey = q.university + ' | ' + q.department + ' | ' + q.year + ' | ' + q.examType;
-    if (!groups.has(groupKey)) {
-      groups.set(groupKey, { university: q.university, dept: q.department,
-                              year: q.year, examType: q.examType, items: [] });
-    }
-    groups.get(groupKey).items.push(q);
+  // Flat list, newest year first; Tips pushed to the bottom regardless of year.
+  const sorted = [...questions].sort(function(a, b) {
+    const aTips = a.examType === 'Tips', bTips = b.examType === 'Tips';
+    if (aTips !== bTips) return aTips ? 1 : -1;
+    if (b.year !== a.year) return (Number(b.year) || 0) - (Number(a.year) || 0);
+    if (a.university !== b.university) return a.university.localeCompare(b.university);
+    return (a.questionNumber || '').localeCompare(b.questionNumber || '', undefined, { numeric: true });
   });
 
-  // Tip sections to bottom
-  const sorted = [...groups.values()].sort(function(a, b) {
-    if (a.examType === 'Tips' && b.examType !== 'Tips') return 1;
-    if (b.examType === 'Tips' && a.examType !== 'Tips') return -1;
-    return b.year - a.year;
-  });
-
-  let html = '';
-  sorted.forEach(function(g, gi) {
-    const isTips = g.examType === 'Tips';
-    const sectionId = 'sec_' + gi;
-    const yearLabel = g.year && g.year !== 'General' ? g.year : '';
-    const examLabel = g.examType || '';
-    const metaStr   = [g.dept, yearLabel, examLabel].filter(Boolean).join(' · ');
-    const pillHtml  = [
-      g.dept     ? '<span class="section-pill">' + escHtml(g.dept) + '</span>' : '',
-      yearLabel  ? '<span class="section-pill">' + escHtml(yearLabel) + '</span>' : '',
-      examLabel  ? '<span class="section-pill' + (isTips ? ' section-pill-accent' : '') + '">' + escHtml(examLabel) + '</span>' : '',
-      '<span class="section-pill">' + g.items.length + (g.items.length === 1 ? ' Q' : ' Qs') + '</span>',
-    ].join('');
-
-    html += '<div class="section-header" onclick="toggleSection(\'' + sectionId + '\', this)">';
-    html += '<div class="section-info">';
-    html += '<span class="section-uni">' + (isTips ? '📌 ' : '') + escHtml(g.university) + '</span>';
-    if (metaStr) html += '<span class="section-meta">' + escHtml(metaStr) + '</span>';
-    html += '<div class="section-pills">' + pillHtml + '</div>';
-    html += '</div>';
-    html += '<span class="s-arrow">▲</span>';
-    html += '</div>';
-    html += '<div class="section-body" id="' + sectionId + '">';
-
-    g.items.forEach(function(q) {
-      html += buildCard(q);
-    });
-
-    html += '</div>'; // section-body
-  });
-
-  area.innerHTML = html;
+  area.innerHTML = sorted.map(buildCard).join('\n');
 
   // Highlight code blocks
   area.querySelectorAll('pre code').forEach(function(el) {
@@ -787,44 +824,80 @@ function renderAll(questions) {
     window.MathJax.typeset([area]);
   }
 
-  // Update stats
-  const total = questions.length;
-  const groups_count = sorted.length;
   document.getElementById('statsPill').textContent =
-    total + ' question' + (total !== 1 ? 's' : '') + ' · ' + groups_count + ' section' + (groups_count !== 1 ? 's' : '');
+    sorted.length + ' question' + (sorted.length !== 1 ? 's' : '') + ' found';
 }
 
-/* ── Build a single Q card ── */
+/* ── Build a single question card. Hierarchy: QNum + Question are the
+   primary focus; University/Department/Year/ExamType/Category/Topic
+   appear as small secondary tags underneath. ── */
 function buildCard(q) {
   const meta        = categoryMeta(q.category);
-  const colorClass  = 'card-head-' + (q.cardColor || meta.color);
+  const badgeColor  = q.cardColor || meta.color;
   const bodyOpen    = q.defaultOpen ? ' open' : '';
   const arrowSymbol = q.defaultOpen ? '▲' : '▼';
+  const isTips      = q.examType === 'Tips';
+
+  const preview = q.questionText ? previewText(q.questionText, 180) : '(No question text)';
+
+  const tags = [
+    q.university ? '<span class="tag tag-university">🏛️ ' + escHtml(q.university) + '</span>' : '',
+    q.department ? '<span class="tag">' + escHtml(q.department) + '</span>' : '',
+    q.year       ? '<span class="tag">' + escHtml(q.year) + '</span>' : '',
+    q.examType   ? '<span class="tag' + (isTips ? ' tag-examtype-tips' : '') + '">' + escHtml(q.examType) + '</span>' : '',
+    q.category   ? '<span class="tag tag-category">' + meta.icon + ' ' + escHtml(q.category) + '</span>' : '',
+    q.topic      ? '<span class="tag tag-topic">🏷️ ' + escHtml(q.topic) + '</span>' : '',
+  ].join('');
+
   const questionHtml = q.questionText
     ? '<div class="polished-q"><div class="polished-q-label">✏️ Question</div><div class="rich-content">' +
       formatContent(q.questionText) + '</div></div>'
     : '';
-  const answerHtml = formatContent(q.answer || '');
-  const catLabel = q.category ? (meta.icon + ' ' + escHtml(q.category)) : '';
+
+  const answerSectionHtml = q.answerLocked
+    ? '<div class="answer-locked">🔒 The answer for this question isn\'t included in your current access level.<br>' +
+      '<span>Contact the administrator if you believe this should be unlocked.</span></div>'
+    : '<div class="rich-content">' + formatContent(q.answer || '') + '</div>';
 
   return [
     '<div class="card">',
-    '  <div class="card-head ' + colorClass + '" onclick="toggleCard(this)">',
-    '    <div class="card-head-left">',
-    '      <span class="qnum">' + escHtml(q.questionNumber || 'Q') + '</span>',
-    '      <div class="card-title-wrap">',
-    '        <div class="card-title">' + escHtml(q.topic || 'Untitled') + '</div>',
-    catLabel ? '        <div class="card-cat">' + catLabel + '</div>' : '',
-    '      </div>',
-    '    </div>',
+    '  <div class="card-head" onclick="toggleCard(this)">',
+    '    <span class="q-badge q-badge-' + badgeColor + '">' + escHtml(q.questionNumber || 'Q') + '</span>',
+    '    <div class="card-question-preview">' + escHtml(preview) + '</div>',
     '    <span class="c-arrow">' + arrowSymbol + '</span>',
     '  </div>',
+    '  <div class="card-tags">' + tags + '</div>',
     '  <div class="card-body' + bodyOpen + '">',
+    '    <div class="card-body-divider"></div>',
     '    ' + questionHtml,
-    '    <div class="rich-content">' + answerHtml + '</div>',
+    '    ' + answerSectionHtml,
     '  </div>',
     '</div>',
   ].join('\n');
+}
+
+/**
+ * Strips the plain-text formatting syntax (#, *, ```, table pipes, image
+ * links, etc.) down to clean readable text for the collapsed card preview.
+ * Full rich rendering still happens via formatContent() once expanded.
+ */
+function previewText(raw, maxLen) {
+  if (!raw) return '';
+  let t = raw;
+  t = t.replace(/```[\s\S]*?```/g, ' [code] ');
+  t = t.replace(/^https?:\/\/\S+(?:\s*-\s*.+)?$/gm, ' [image] ');
+  t = t.replace(/^#\s+/gm, '');
+  t = t.replace(/^[-•]\s+/gm, '');
+  t = t.replace(/^\d+[\.\)]\s+/gm, '');
+  t = t.replace(/^=\s+/gm, '');
+  t = t.replace(/^(TIP|NOTE|WARNING|IMPORTANT):\s*/gim, '');
+  t = t.replace(/\*([^*\n]+)\*/g, '$1');
+  t = t.replace(/_([^_\n]+)_/g, '$1');
+  t = t.replace(/~([^~\n]+)~/g, '$1');
+  t = t.replace(/`([^`\n]+)`/g, '$1');
+  t = t.replace(/\s+/g, ' ').trim();
+  if (t.length > maxLen) t = t.slice(0, maxLen - 1).trim() + '…';
+  return t;
 }
 
 function setContent(html) {
@@ -1093,7 +1166,7 @@ function handleImgError(img) {
    UI INTERACTIONS
 ═══════════════════════════════════════════ */
 function toggleCard(head) {
-  const body  = head.nextElementSibling;
+  const body  = head.closest('.card').querySelector('.card-body');
   const arrow = head.querySelector('.c-arrow');
   const open  = body.classList.toggle('open');
   arrow.textContent = open ? '▲' : '▼';
@@ -1102,13 +1175,6 @@ function toggleCard(head) {
     body.querySelectorAll('pre code:not(.hljs)').forEach(el => hljs.highlightElement(el));
     if (window.MathJax && window.MathJax.typeset) window.MathJax.typeset([body]);
   }
-}
-
-function toggleSection(id, headerEl) {
-  const body  = document.getElementById(id);
-  const arrow = headerEl.querySelector('.s-arrow');
-  const collapsed = body.classList.toggle('collapsed');
-  arrow.style.transform = collapsed ? 'rotate(180deg)' : '';
 }
 
 function openLightbox(src, caption) {
@@ -1138,9 +1204,6 @@ function showToast(msg, ms) {
 ═══════════════════════════════════════════ */
 function escHtml(s) {
   return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-function escAttr(s) {
-  return String(s==null?'':s).replace(/'/g, "\\'");
 }
 </script>
 </body>
